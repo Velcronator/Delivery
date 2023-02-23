@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Delivery : MonoBehaviour
 {
     bool hasPackage = false;
+    [SerializeField] float destroyDelay = 1f;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -24,8 +25,9 @@ public class Delivery : MonoBehaviour
             hasPackage = false;
         }
 
-        if (collision.tag == "Package")
+        if (collision.tag == "Package" && !hasPackage)
         {
+            Destroy(collision.gameObject, destroyDelay);
             hasPackage = true;
             Debug.Log("Trigger a " + collision.gameObject);
         }
